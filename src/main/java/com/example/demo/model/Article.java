@@ -1,13 +1,20 @@
 package com.example.demo.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDateTime;
 
 public class Article {
     //변수 선언
     private Long id;
+    @NotNull
     private Long authorId;
+    @NotNull
     private Long boardId;
+    @NotBlank
     private String title;
+    @NotBlank
     private String content;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
@@ -15,8 +22,8 @@ public class Article {
     //기본 생성자 -> 저장 공간 만들기
     public Article() {
         this.id = 0L;
-        this.authorId = 0L;
-        this.boardId = 0L;
+        this.authorId = null;
+        this.boardId = null;
         this.title = "";
         this.content = "";
         this.createdDate = LocalDateTime.now();
