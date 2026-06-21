@@ -49,4 +49,10 @@ public class ArticleController {
         //서비스에서 ObjectMapper를 사용해 JsonNode을 반환
         //이미 백엔드 코드에서 완성해 둔 JSON 구조를 그대로 직송
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteArticle(@PathVariable Long id) {
+        articleService.deleteArticle(id);
+        return ResponseEntity.noContent().build();
+    }
 }

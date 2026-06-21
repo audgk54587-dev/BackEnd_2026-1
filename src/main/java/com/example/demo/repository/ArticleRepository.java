@@ -1,7 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.Article;
-import org.springframework.stereotype.Repository;   //@Repository 쓸 수 있도록
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,16 +9,13 @@ import java.util.Optional;
 import java.util.ArrayList;     //ArrayList를 꺼내 쓰기 위해
 import java.util.List;          //List를 사용하기 위해
 
-@Repository     //DB를 전담하는 데이터 창구임을 알림
+@Repository
 public class ArticleRepository {
-    private final List<Article> articles;
-    //List: 타입 -> 크기가 유동적으로 바뀜
-    //<Article>: 제네릭(타입 제한) -> Article 정보만 들어감
+    private final List<Article> articles = new ArrayList<>();
 
     private long sequence = 4L;
 
     public ArticleRepository() {
-        articles = new ArrayList<>();
         articles.add(new Article(0L, 0L, 0L, "제목0", "내용0"));
         //우리가 설계했던 임시 저장소 변수(articles)에 실제 데이터를 담을 수 있는 가방(ArrayList)을 새로 만들어서 연결
         articles.add(new Article(0L, 0L, 0L, "제목0", " "));
@@ -73,5 +70,9 @@ public class ArticleRepository {
             }
         }
         return false;
+    }
+
+    public void delete(Article article) {
+        articles.remove(article);
     }
 }

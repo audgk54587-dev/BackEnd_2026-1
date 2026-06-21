@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -8,9 +10,12 @@ import java.time.LocalDateTime;
 public class Article {
     //변수 선언
     private Long id;
-    @NotNull
+    //@NotNull
+    @JsonProperty("author_id")
     private Long authorId;
     @NotNull
+    @JsonProperty("board_id")
+    @JsonAlias("boardId")
     private Long boardId;
     @NotBlank
     private String title;
