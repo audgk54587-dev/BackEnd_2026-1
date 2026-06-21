@@ -2,31 +2,48 @@ package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
+//import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "article")
 public class Article {
-    //변수 선언
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     //@NotNull
     @JsonProperty("author_id")
+    @Column(name = "author_id")
     private Long authorId;
+
     @NotNull
     @JsonProperty("board_id")
     @JsonAlias("boardId")
+    @Column(name = "board_id")
     private Long boardId;
+
     @NotBlank
     private String title;
+
     @NotBlank
     private String content;
+
+    @Column(name = "created_date", updatable = false)
     private LocalDateTime createdDate;
+
+    @Column(name = "modified_date")
     private LocalDateTime modifiedDate;
 
     //기본 생성자 -> 저장 공간 만들기
     public Article() {
-        this.id = 0L;
+        this.id = null;
         this.authorId = null;
         this.boardId = null;
         this.title = "";
