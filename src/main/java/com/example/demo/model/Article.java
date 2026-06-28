@@ -1,24 +1,21 @@
 package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Column;
-//import jakarta.persistence.Entity;
 import jakarta.persistence.*;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "article")
 public class Article {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    //@NotNull
+
     @JsonProperty("author_id")
     @Column(name = "author_id")
     private Long authorId;
@@ -26,8 +23,13 @@ public class Article {
     @NotNull
     @JsonProperty("board_id")
     @JsonAlias("boardId")
-    @Column(name = "board_id")
+    @Column(name = "board_id", insertable = false, updatable = false)
     private Long boardId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id")
+    @JsonIgnore  // 순환참조 방지
+    private Board board;
 
     @NotBlank
     private String title;
@@ -85,6 +87,17 @@ public class Article {
 
     public void setBoardId(Long boardId) {
         this.boardId = boardId;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+        if (board != null) {
+            this.boardId = board.getId();  // boardId 동기화
+        }
     }
 
     public String getTitle() {

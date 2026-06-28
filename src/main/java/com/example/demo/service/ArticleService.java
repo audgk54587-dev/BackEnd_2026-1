@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Article;
+import com.example.demo.model.Board;
 import com.example.demo.repository.ArticleRepository;
 import com.example.demo.repository.BoardRepository;
 import com.example.demo.repository.MemberRepository;
@@ -59,11 +60,12 @@ public class ArticleService {
 
         memberRepository.findById(updatedArticle.getAuthorId())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
-        boardRepository.findById(updatedArticle.getBoardId())
+
+        Board board = boardRepository.findById(updatedArticle.getBoardId())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시판입니다."));
 
         article.setAuthorId(updatedArticle.getAuthorId());
-        article.setBoardId(updatedArticle.getBoardId());
+        article.setBoard(board);         // 연관관계 세팅 (boardId도 내부에서 자동 동기화)
         article.setTitle(updatedArticle.getTitle());
         article.setContent(updatedArticle.getContent());
         article.setModifiedDate(LocalDateTime.now());
