@@ -15,10 +15,10 @@ public class MemberRepository {
 
     public MemberRepository() {
         members = new ArrayList<>();
-        members.add(new Member(0L, "황명하", "myeongha@example.com"));
-        members.add(new Member(1L, "홍길동", "gildong@example.com"));
-        members.add(new Member(2L, "이순신", "sunshin@example.com"));
-        members.add(new Member(3L, "김철수", "chulsoo@example.com"));
+        members.add(new Member(0L, "황명하", "myeongha@example.com", "1234"));
+        members.add(new Member(1L, "홍길동", "gildong@example.com", "1234"));
+        members.add(new Member(2L, "이순신", "sunshin@example.com", "1234"));
+        members.add(new Member(3L, "김철수", "chulsoo@example.com", "1234"));
     }
 
     public List<Member> findAll() {

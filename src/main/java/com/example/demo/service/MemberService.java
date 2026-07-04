@@ -30,7 +30,17 @@ public class MemberService {
     }
 
     public Member createMember(Member member) {
+        Optional<Member> existingMember = memberRepository.findByEmail(member.getEmail());
+        if (existingMember.isPresent()) {
+            throw new IllegalStateException("이미 존재하는 이메일입니다.");
+        }
         return memberRepository.save(member);
+    }
+
+    public Member login(String email, String password) {
+        return memberRepository.findByEmail(email)
+                .filter(m -> m.getPassword().equals(password))
+                .orElse(null);
     }
 
     public Member updateMember(Long id, Member updatedMember) {
@@ -44,6 +54,11 @@ public class MemberService {
 
         member.setName(updatedMember.getName());
         member.setEmail(updatedMember.getEmail());
+
+        if (updatedMember.getPassword() != null && !updatedMember.getPassword().isBlank()) {
+            member.setPassword(updatedMember.getPassword());
+        }
+
         member.setModifiedDate(LocalDateTime.now());
 
         return memberRepository.save(member);

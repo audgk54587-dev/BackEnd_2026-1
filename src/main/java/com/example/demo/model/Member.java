@@ -12,6 +12,9 @@ public class Member {
     @NotBlank
     private String email;
 
+    @NotBlank
+    private String password;
+
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
@@ -19,14 +22,16 @@ public class Member {
         this.id = 0L;
         this.name = "";
         this.email = "";
+        this.password = "";
         this.createdDate = LocalDateTime.now();
         this.modifiedDate = LocalDateTime.now();
     }
 
-    public Member(Long id, String name, String email) {
+    public Member(Long id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.password = password;
         this.createdDate = LocalDateTime.now();
         this.modifiedDate = LocalDateTime.now();
     }
@@ -53,6 +58,14 @@ public class Member {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public LocalDateTime getCreatedDate() {
